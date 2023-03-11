@@ -94,8 +94,23 @@
       } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
-        canvas.style.width = "1080px";
-        canvas.style.height = "1920px";
+        // canvas を画面いっぱいにする
+        let styleHeight = window.innerHeight;
+        let styleWidth = window.innerWidth;
+        if ((styleWidth * 16) / 9 < styleHeight) {
+          styleHeight = (styleWidth * 16) / 9;
+        } else {
+          styleWidth = (styleHeight * 9) / 16;
+        }
+
+        var ratio = window.devicePixelRatio || 1;
+
+        canvas.setAttribute("height", styleHeight * ratio);
+        canvas.setAttribute("width", styleWidth * ratio);
+        canvas.setAttribute(
+          "style",
+          `height:${styleHeight}px; width: ${styleWidth}px;`
+        );
       }
 
       loadingBar.style.display = "block";
