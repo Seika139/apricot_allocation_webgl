@@ -3,6 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
     <title>つまんで・しわけて・杏ちゃん</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico" />
     <link rel="stylesheet" href="TemplateData/style.css" />
@@ -77,41 +81,41 @@
       // the canvas DOM size and WebGL render target sizes yourself.
       // config.matchWebGLToCanvasSize = false;
 
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // Mobile device style: fill the whole browser client area with the game canvas:
+      // if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      //   // Mobile device style: fill the whole browser client area with the game canvas:
 
-        var meta = document.createElement("meta");
-        meta.name = "viewport";
-        meta.content =
-          "width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes";
-        document.getElementsByTagName("head")[0].appendChild(meta);
-        container.className = "unity-mobile";
-        canvas.className = "unity-mobile";
+      //   var meta = document.createElement("meta");
+      //   meta.name = "viewport";
+      //   meta.content =
+      //     "width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes";
+      //   document.getElementsByTagName("head")[0].appendChild(meta);
+      //   container.className = "unity-mobile";
+      //   canvas.className = "unity-mobile";
 
-        // To lower canvas resolution on mobile devices to gain some
-        // performance, uncomment the following line:
-        // config.devicePixelRatio = 1;
+      //   // To lower canvas resolution on mobile devices to gain some
+      //   // performance, uncomment the following line:
+      //   // config.devicePixelRatio = 1;
+      // } else {
+      // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
+
+      // canvas を画面いっぱいにする
+      let styleHeight = window.innerHeight;
+      let styleWidth = window.innerWidth;
+      if ((styleWidth * 16) / 9 < styleHeight) {
+        styleHeight = (styleWidth * 16) / 9;
       } else {
-        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-
-        // canvas を画面いっぱいにする
-        let styleHeight = window.innerHeight;
-        let styleWidth = window.innerWidth;
-        if ((styleWidth * 16) / 9 < styleHeight) {
-          styleHeight = (styleWidth * 16) / 9;
-        } else {
-          styleWidth = (styleHeight * 9) / 16;
-        }
-
-        var ratio = window.devicePixelRatio || 1;
-
-        canvas.setAttribute("height", styleHeight * ratio);
-        canvas.setAttribute("width", styleWidth * ratio);
-        canvas.setAttribute(
-          "style",
-          `height:${styleHeight}px; width: ${styleWidth}px;`
-        );
+        styleWidth = (styleHeight * 9) / 16;
       }
+
+      var ratio = window.devicePixelRatio || 1;
+
+      canvas.setAttribute("height", styleHeight * ratio);
+      canvas.setAttribute("width", styleWidth * ratio);
+      canvas.setAttribute(
+        "style",
+        `height:${styleHeight}px; width: ${styleWidth}px;`
+      );
+      // }
 
       loadingBar.style.display = "block";
 
